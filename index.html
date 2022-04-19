@@ -15,7 +15,7 @@
 	function onShake(accelerometer) {
 		if (Math.abs(accelerometer.x) < 0.6) return;
 
-		document.getElementById("shake-count").innerHTML = shake: (++shakeCnt);
+		document.getElementById("shake-count").innerHTML = (++shakeCnt);
 		document.getElementById("acc-info").innerHTML = `Accelo:<br>x: ${accelerometer.x}<br>
 		y: ${accelerometer.x}<br>
 		z: ${accelerometer.z}`;
