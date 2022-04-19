@@ -15,19 +15,22 @@
 	function onShake(accelerometer) {
 		if (Math.abs(accelerometer.x) < 0.6) return;
 
-		document.getElementById("shake-count").innerHTML = (++shakeCnt);
-		document.getElementById("acc-info").innerHTML = `x: ${accelerometer.x}<br>
+		document.getElementById("shake-count").innerHTML = shake: (++shakeCnt);
+		document.getElementById("acc-info").innerHTML = `Accelo:<br>x: ${accelerometer.x}<br>
 		y: ${accelerometer.x}<br>
 		z: ${accelerometer.z}`;
 	}
 	
 	function onGyro(gyroscope) {
 	
-		document.getElementById("gyro").innerHTML = `x: ${Math.round(gyroscope.x * 100) / 100}<br>
+		document.getElementById("gyro").innerHTML = `Gyro:<br>x: ${Math.round(gyroscope.x * 100) / 100}<br>
 		y: ${Math.round(gyroscope.y * 100) / 100}<br>
 		z: ${Math.round(gyroscope.z * 100) / 100}`;
 	}
 
+	function onLightRead(ambientLightSensor) {
+		document.getElementById("light").innerHTML = `lux: $(ambientLightSensor.illuminance}`
+	}
 	let accelerometer = null;
 	try {
 		accelerometer = new Accelerometer({frequency: 10});
@@ -52,9 +55,9 @@
 		// Handle construction errors.
 		if (error.name === 'SecurityError') {
 			// See the note above about feature policy.
-			displayError('Sensor construction was blocked by a feature policy.');
+			displayError('Accelerometer Sensor construction was blocked by a feature policy.');
 		} else if (error.name === 'ReferenceError') {
-			displayError('Sensor is not supported by the User Agent.');
+			displayError('Accelerometer Sensor is not supported by the User Agent.');
 		} else {
 			throw error;
 		}
@@ -84,9 +87,9 @@
 		// Handle construction errors.
 		if (error.name === 'SecurityError') {
 			// See the note above about feature policy.
-			displayError('Sensor construction was blocked by a feature policy.');
+			displayError('Gyro Sensor construction was blocked by a feature policy.');
 		} else if (error.name === 'ReferenceError') {
-			displayError('Sensor is not supported by the User Agent.');
+			displayError('Gyro Sensor is not supported by the User Agent.');
 		} else {
 			throw error;
 		}
@@ -100,7 +103,7 @@
 			if (event.error.name === 'NotAllowedError') {
 				// Branch to code for requesting permission.
 			} else if (event.error.name === 'NotReadableError' ) {
-				displayError('Cannot connect to the sensor.');
+				displayError('Cannot connect to the light sensor.');
 			}
 		});
 		ambientLightSensor.addEventListener('reading', () => onLightRead(ambientLightSensor));
@@ -109,9 +112,9 @@
 		// Handle construction errors.
 		if (error.name === 'SecurityError') {
 			// See the note above about feature policy.
-			displayError('Sensor construction was blocked by a feature policy.');
+			displayError('Light Sensor construction was blocked by a feature policy.');
 		} else if (error.name === 'ReferenceError') {
-			displayError('Sensor is not supported by the User Agent.');
+			displayError('Light Sensor is not supported by the User Agent.');
 		} else {
 			throw error;
 		}
