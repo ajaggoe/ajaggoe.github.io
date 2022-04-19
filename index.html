@@ -1,6 +1,8 @@
 <h1 id="error"></h1>
 <h1 id="shake-count">0</h1>
 <h1 id="acc-info"></h1>
+<h1>gyroscope</h1>
+<h1 id="gyro"></h1>
 <h1 id="light"></h1>
 
 <script>
@@ -11,31 +13,73 @@
 	let shakeCnt = 0
 
 	function onShake(accelerometer) {
-		if (Math.abs(accelerometer.x) < 0.7) return;
-	
+		if (Math.abs(accelerometer.x) < 0.6) return;
+
 		document.getElementById("shake-count").innerHTML = (++shakeCnt);
 		document.getElementById("acc-info").innerHTML = `x: ${accelerometer.x}<br>
 		y: ${accelerometer.x}<br>
 		z: ${accelerometer.z}`;
 	}
 	
-	function onLightRead(ambientLightSensor) {
-		document.getElementById("light").innerHTML = `lux: $(ambientLightSensor.illuminance}`
+	function onGyro(gyroscope) {
+	
+		document.getElementById("gyro").innerHTML = `x: ${Math.round(gyroscope.x * 100) / 100}<br>
+		y: ${Math.round(gyroscope.y * 100) / 100}<br>
+		z: ${Math.round(gyroscope.z * 100) / 100}`;
 	}
 
 	let accelerometer = null;
 	try {
-		accelerometer = new Accelerometer({ referenceFrame: 'device' });
+		accelerometer = new Accelerometer({frequency: 10});
 		accelerometer.addEventListener('error', event => {
 			// Handle runtime errors.
 			if (event.error.name === 'NotAllowedError') {
-				// Branch to code for requesting permission.
+				navigator.permissions.query({ name: 'accelerometer' })
+					.then(result => {
+					  if (result.state === 'denied') {
+						displayError('Permission to use accelerometer sensor is denied.');
+						return;
+					  }
+					  // Use the sensor.
+					});
 			} else if (event.error.name === 'NotReadableError' ) {
 				displayError('Cannot connect to the sensor.');
 			}
 		});
 		accelerometer.addEventListener('reading', () => onShake(accelerometer));
 		accelerometer.start();
+	} catch (error) {
+		// Handle construction errors.
+		if (error.name === 'SecurityError') {
+			// See the note above about feature policy.
+			displayError('Sensor construction was blocked by a feature policy.');
+		} else if (error.name === 'ReferenceError') {
+			displayError('Sensor is not supported by the User Agent.');
+		} else {
+			throw error;
+		}
+	}
+	
+	let gyroscope = null;
+	try {
+		gyroscope = new Gyroscope({frequency: 10});
+		gyroscope.addEventListener('error', event => {
+			// Handle runtime errors.
+			if (event.error.name === 'NotAllowedError') {
+				navigator.permissions.query({ name: 'gyroscope' })
+					.then(result => {
+					  if (result.state === 'denied') {
+						displayError('Permission to use gyroscope sensor is denied.');
+						return;
+					  }
+					  // Use the sensor.
+					});
+			} else if (event.error.name === 'NotReadableError' ) {
+				displayError('Cannot connect to the sensor.');
+			}
+		});
+		gyroscope.addEventListener('reading', () => onGyro(gyroscope));
+		gyroscope.start();
 	} catch (error) {
 		// Handle construction errors.
 		if (error.name === 'SecurityError') {
@@ -72,4 +116,6 @@
 			throw error;
 		}
 	}
+	
+	console.log(gyroscope);
 </script>
