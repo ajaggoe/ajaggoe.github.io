@@ -15,13 +15,17 @@ const constraints = {
 const video = document.querySelector("video");
 const videoSelect = document.querySelector("select#videoSource");
 
-navigator.mediaDevices.enumerateDevices().then(gotDevices).then(getStream).catch(handleError)	
+navigator.mediaDevices.enumerateDevices()
+	.then(gotDevices)
+	.then(getStream)
+	.catch(handleError)	
 
 function gotDevices(deviceInfos) {
   for (let i = 0; i !== deviceInfos.length; ++i) {
     const deviceInfo = deviceInfos[i];
     const option = document.createElement("option");
     option.value = deviceInfo.deviceId;
+	console.log(deviceInfo.deviceId);
     if (deviceInfo.kind === "videoinput") {
       option.text = deviceInfo.label || "camera " + (videoSelect.length + 1);
       videoSelect.appendChild(option);
@@ -83,6 +87,9 @@ function handleError(error) {
 		document.getElementById("light").innerHTML = `lux: $(ambientLightSensor.illuminance}`
 	}
 	let accelerometer = null;
+	let gyroscope = null;
+	let ambientLightSensor = null;
+
 	try {
 		accelerometer = new Accelerometer({frequency: 10});
 		accelerometer.addEventListener('error', event => {
@@ -97,7 +104,7 @@ function handleError(error) {
 					  // Use the sensor.
 					});
 			} else if (event.error.name === 'NotReadableError' ) {
-				displayError('Cannot connect to the sensor.');
+				displayError('Cannot connect to the Accelerometer.');
 			}
 		});
 		accelerometer.addEventListener('reading', () => onShake(accelerometer));
@@ -114,7 +121,6 @@ function handleError(error) {
 		}
 	}
 	
-	let gyroscope = null;
 	try {
 		gyroscope = new Gyroscope({frequency: 10});
 		gyroscope.addEventListener('error', event => {
@@ -129,7 +135,7 @@ function handleError(error) {
 					  // Use the sensor.
 					});
 			} else if (event.error.name === 'NotReadableError' ) {
-				displayError('Cannot connect to the sensor.');
+				displayError('Cannot connect to the Gyroscope.');
 			}
 		});
 		gyroscope.addEventListener('reading', () => onGyro(gyroscope));
@@ -146,7 +152,6 @@ function handleError(error) {
 		}
 	}
 	
-	let ambientLightSensor = null;
 	try {
 		ambientLightSensor = new AmbientLightSensor({frequency: 60});
 		ambientLightSensor.addEventListener('error', event => {
