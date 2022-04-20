@@ -71,7 +71,7 @@ function handleError(error) {
 		if (Math.abs(accelerometer.x) < 0.6) return;
 
 		document.getElementById("shake-count").innerHTML = (++shakeCnt);
-		document.getElementById("acc-info").innerHTML = `Accelo:<br>x: ${accelerometer.x}<br>
+		document.getElementById("acc-info").innerHTML = `Accelerometer :<br>x: ${accelerometer.x}<br>
 		y: ${accelerometer.x}<br>
 		z: ${accelerometer.z}`;
 	}
