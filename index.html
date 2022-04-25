@@ -6,7 +6,7 @@
 <p id="light"></p>
 <video autoplay></video>
 <label for="videoSource">Video source: </label><select id="videoSource"> </select>
-
+<button id="videoShow" onclick="showVid()">Show video</button>
 <script>
 const constraints = {
   video: true,
@@ -14,11 +14,15 @@ const constraints = {
 
 const video = document.querySelector("video");
 const videoSelect = document.querySelector("select#videoSource");
-
-navigator.mediaDevices.enumerateDevices()
+let nav = navigator.mediaDevices.enumerateDevices()
 	.then(gotDevices)
-	.then(getStream)
+function showVid() {
+
+	nav.then(getStream)
 	.catch(handleError)	
+}
+
+
 
 function gotDevices(deviceInfos) {
   for (let i = 0; i !== deviceInfos.length; ++i) {
