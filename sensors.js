@@ -27,6 +27,20 @@ let accelerometer = null;
 let gyroscope = null;
 let ambientLightSensor = null;
 
+const options = { frequency: 60, referenceFrame: 'device' };
+const sensor = new RelativeOrientationSensor(options);
+
+sensor.addEventListener('reading', () => {
+  // model is a Three.js object instantiated elsewhere.
+  model.quaternion.fromArray(sensor.quaternion).inverse();
+});
+sensor.addEventListener('error', error => {
+  if (event.error.name == 'NotReadableError') {
+    console.log("Relative Sensor is not available.");
+  }
+});
+sensor.start();
+
 try {
     accelerometer = new Accelerometer({frequency: 10});
     accelerometer.addEventListener('error', event => {
