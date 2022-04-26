@@ -107,7 +107,7 @@ try {
     sensorLight.onreading = () => document.getElementById("light").innerHTML = `lux: $(ambientLightSensor.illuminance}`;
 }
 catch(error){
-    displayError(error)
+    displayError('blyat'+error)
 }
 try {
     ambientLightSensor = new AmbientLightSensor({frequency: 60});

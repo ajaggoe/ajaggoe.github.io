@@ -7,6 +7,7 @@
 <video autoplay></video>
 <label for="videoSource">Video source: </label><select id="videoSource"> </select>
 <button id="videoShow" onclick="showVid()">Show video</button>
+<button id="videoHide" onclick="hideVid()">Hide video</button>
 <script>
 const constraints = {
   video: true,
@@ -18,13 +19,13 @@ let nav = navigator.mediaDevices.enumerateDevices()
 	.then(gotDevices)
 
 function showVid() {
-  if(video.srcObject == null){
     nav.then(getStream)
     .catch(handleError)	
-  }
-  else{
-    video.srcObject = null;
-  }
+  
+}
+
+function hideVid() {
+  video.srcObject = null;
 }
 
 
