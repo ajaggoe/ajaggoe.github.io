@@ -102,8 +102,8 @@ try {
         throw error;
     }
 }
-const sensorLight = new AmbientLightSensor();
 try {
+    const sensorLight = new AmbientLightSensor();
     sensorLight.onreading = () => document.getElementById("light").innerHTML = `lux: $(ambientLightSensor.illuminance}`;
 }
 catch(error){
