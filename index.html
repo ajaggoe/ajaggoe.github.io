@@ -16,10 +16,15 @@ const video = document.querySelector("video");
 const videoSelect = document.querySelector("select#videoSource");
 let nav = navigator.mediaDevices.enumerateDevices()
 	.then(gotDevices)
-function showVid() {
 
-	nav.then(getStream)
-	.catch(handleError)	
+function showVid() {
+  if(video.srcObject == None){
+    nav.then(getStream)
+    .catch(handleError)	
+  }
+  else{
+    video.srcObject = None;
+  }
 }
 
 
