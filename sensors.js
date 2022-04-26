@@ -103,7 +103,12 @@ try {
     }
 }
 const sensorLight = new AmbientLightSensor();
-sensorLight.onreading = () => document.getElementById("light").innerHTML = `lux: $(ambientLightSensor.illuminance}`;
+try {
+    sensorLight.onreading = () => document.getElementById("light").innerHTML = `lux: $(ambientLightSensor.illuminance}`;
+}
+catch(error){
+    displayError(error)
+}
 try {
     ambientLightSensor = new AmbientLightSensor({frequency: 60});
     ambientLightSensor.addEventListener('error', event => {
