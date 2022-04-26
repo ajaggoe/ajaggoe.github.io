@@ -33,6 +33,9 @@ const sensor = new RelativeOrientationSensor(options);
 sensor.addEventListener('reading', () => {
   // model is a Three.js object instantiated elsewhere.
   model.quaternion.fromArray(sensor.quaternion).inverse();
+
+  document.getElementById("light").innerHTML = `x = $(sensor)`
+
 });
 sensor.addEventListener('error', error => {
   if (event.error.name == 'NotReadableError') {
