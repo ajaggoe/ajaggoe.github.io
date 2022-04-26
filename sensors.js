@@ -102,7 +102,8 @@ try {
         throw error;
     }
 }
-
+const sensorLight = new AmbientLightSensor();
+sensorLight.onreading = () => console.log(sensorLight.illuminance);
 try {
     ambientLightSensor = new AmbientLightSensor({frequency: 60});
     ambientLightSensor.addEventListener('error', event => {
@@ -121,7 +122,7 @@ try {
         // See the note above about feature policy.
         displayError('Light Sensor construction was blocked by a feature policy.');
     } else if (error.name === 'ReferenceError') {
-        displayError('Light Sensor is not supported by the User Agent.'+error);
+        displayError('Light Sensor is not supported by the User Agent.:: '+error);
     } else {
         throw error;
     }
