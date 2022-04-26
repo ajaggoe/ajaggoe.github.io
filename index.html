@@ -18,12 +18,12 @@ let nav = navigator.mediaDevices.enumerateDevices()
 	.then(gotDevices)
 
 function showVid() {
-  if(video.srcObject == None){
+  if(video.srcObject == null){
     nav.then(getStream)
     .catch(handleError)	
   }
   else{
-    video.srcObject = None;
+    video.srcObject = null;
   }
 }
 
