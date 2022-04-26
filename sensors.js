@@ -121,7 +121,7 @@ try {
         // See the note above about feature policy.
         displayError('Light Sensor construction was blocked by a feature policy.');
     } else if (error.name === 'ReferenceError') {
-        displayError('Light Sensor is not supported by the User Agent.');
+        displayError('Light Sensor is not supported by the User Agent.'+error);
     } else {
         throw error;
     }
