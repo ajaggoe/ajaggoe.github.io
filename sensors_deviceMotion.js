@@ -3,24 +3,22 @@ function displayError(msg) {
 }
 
 function getOrientation(compas){
-    let x = Math.ceil(compas)
-    
-        if(x < 45 || x >= 315){
-            return "N";
-        } 
-        else if( x < 135){
-            return "E";
-        }
-
-        else if( x < 225){
-            return "S";
-        }
-        else{
-            return "W";
-        }
-
+    let x = Math.ceil(compas);
+    if(x < 45 || x >= 315){
+        return "N";
+    } 
+    else if( x < 135){
+        return "E";
     }
+    else if( x < 225){
+        return "S";
+    }
+    else{
+        return "W";
+    }
+
 }
+
 window.addEventListener('deviceorientation', function(compas) {
     console.log(compas.alpha + ' : ' + compas.beta + ' : ' + compas.gamma);
     this.document.getElementById("gyro").innerHTML = `Magnetic Declination: X-Orientation: ${getOrientation(compas.alpha)} <br> Y = ${Math.ceil(compas.beta)} <br> Z = ${Math.ceil(compas.gamma)}`
