@@ -3,15 +3,21 @@ function displayError(msg) {
 }
 
 function getOrientation(compas){
-    switch(Math.ceil(compas)){
-        case x < 45 || x >= 315: 
+    let x = Math.ceil(compas)
+    
+        if(x < 45 || x >= 315){
             return "N";
-        case x < 135:
+        } 
+        else if( x < 135){
             return "E";
-        case x < 225:
+        }
+
+        else if( x < 225){
             return "S";
-        case x < 315:
+        }
+        else{
             return "W";
+        }
 
     }
 }
