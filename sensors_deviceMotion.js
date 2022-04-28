@@ -23,11 +23,13 @@ function getOrientation(compas){
 window.addEventListener('deviceorientation', function(compas) {
     console.log(compas.alpha + ' : ' + compas.beta + ' : ' + compas.gamma);
     this.document.getElementById("gyro").innerHTML = `Magnetic Declination: X-Orientation: ${getOrientation(compas.alpha)} <br> Y = ${Math.ceil(compas.beta)} <br> Z = ${Math.ceil(compas.gamma)}`
-  });
+    });
 
 window.addEventListener('devicemotion', function(event) {
     console.log(event.acceleration.x + ' m/s2');
     this.document.getElementById("acc-info").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
+    this.document.getElementById("gyro").style.left = event.x * 3 + 20
+
 });
 
 navigator.permissions.query({ name: 'ambient-light-sensor' }).then(result => {
@@ -52,6 +54,9 @@ navigator.permissions.query({ name: 'ambient-light-sensor' }).then(result => {
     als.start();
 });
 
+/**
+ * FLASHLIGHT
+ */
 //have a console on mobile
 const consoleOutput = document.getElementById("console");
 const log = function (msg) {
