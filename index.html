@@ -32,6 +32,12 @@ const constraints = {
 
 const video = document.querySelector("video");
 const videoSelect = document.querySelector("select#videoSource");
+
+const sensor = new AmbientLightSensor();
+sensor.onreading = () => console.log(sensor.illuminance);
+sensor.onerror = event => console.log(event.error.name, event.error.message);
+sensor.start();
+
 let nav = navigator.mediaDevices.enumerateDevices()
 	.then(gotDevices)
 
