@@ -27,8 +27,7 @@ let accelerometer = null;
 let gyroscope = null;
 let ambientLightSensor = null;
 
-const options = { frequency: 60, referenceFrame: 'device' };
-const sensor = new RelativeOrientationSensor(options);
+const sensor = new RelativeOrientationSensor({ frequency: 60, referenceFrame: 'device' });
 
 sensor.addEventListener('reading', () => {
   // model is a Three.js object instantiated elsewhere.

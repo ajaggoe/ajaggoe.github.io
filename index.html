@@ -1,3 +1,19 @@
+<head>
+  <style>
+    html {
+    --primary-color: #ffeb3b;
+    --border-color: var(--primary-color);
+    --text-color: #333;
+    --background-color: #f3f;
+  }
+  html.dark {
+    --border-color: #ccc;
+    --text-color: #ccc;
+    --background-color: #181818;
+  }
+  </style> 
+</head>
+<body>
 <p id="error"></p>
 <p id="shake-count">0</p>
 <p id="acc-info"></p>
@@ -8,6 +24,7 @@
 <label for="videoSource">Video source: </label><select id="videoSource"> </select>
 <button id="videoShow" onclick="showVid()">Show video</button>
 <button id="videoHide" onclick="hideVid()">Hide video</button>
+
 <script>
 const constraints = {
   video: true,
@@ -73,3 +90,4 @@ function handleError(error) {
 <script type="application/javascript" src="sensors.js">	
 
 </script>
+</body>
