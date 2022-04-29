@@ -37,7 +37,7 @@ sensor.addEventListener('reading', () => {
 
 });
 sensor.addEventListener('error', error => {
-  if (event.error.name == 'NotReadableError') {
+  if (error.name == 'NotReadableError') {
     console.log("Relative Sensor is not available.");
   }
 });
