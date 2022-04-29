@@ -39,36 +39,30 @@ const constraints = {
 const video = document.querySelector("video");
 const videoSelect = document.querySelector("select#videoSource");
 
-const sensor = new AmbientLightSensor();
-sensor.onreading = () => console.log(sensor.illuminance);
-sensor.onerror = event => console.log(event.error.name, event.error.message);
-sensor.start();
-
+let nav = navigator.mediaDevices.enumerateDevices()
+.then(gotDevices)
 
 var cameraInputs = []
-	navigator.mediaDevices.enumerateDevices().then(devices => {
-		devices.forEach(device => {
-			if (device.kind === "videoinput"){
-				cameraInputs.push({id: device.deviceId, label: device.label})
-			}
-		});
-	})
-	console.log(cameraInputs.length)
-  document.getElementById("light").innerHTML = `${cameraInputs.length} and first one is ${cameraInputs[0]}`
-	console.log(cameraInputs[0])
-  let nav = navigator.mediaDevices.enumerateDevices()
-	.then(gotDevices)
+navigator.mediaDevices.enumerateDevices().then(devices => {
+  devices.forEach(device => {
+    if (device.kind === "videoinput"){
+      cameraInputs.push({id: device.deviceId, label: device.label})
+    }
+  });
+})
+console.log(cameraInputs.length)
+document.getElementById("light").innerHTML = `${cameraInputs.length} and first one is ${cameraInputs[0]}`
+console.log(cameraInputs[0])
+
+
 function showVid() {
     nav.then(getStream)
     .catch(handleError)	
-  
 }
 
 function hideVid() {
   video.srcObject = null;
 }
-
-
 
 function gotDevices(deviceInfos) {
   for (let i = 0; i !== deviceInfos.length; ++i) {
@@ -106,9 +100,11 @@ function gotStream(stream) {
   window.stream = stream; // make stream available to console
   video.srcObject = stream;
 }
+
 function handleError(error) {
   console.error("Error: ", error);
 }
+
 </script>
 <script type="application/javascript" src="sensors_deviceMotion.js">	
 
