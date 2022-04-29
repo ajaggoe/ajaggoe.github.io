@@ -48,6 +48,7 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
     if (device.kind === "videoinput"){
       cameraInputs.push({id: device.deviceId, label: device.label})
     }
+    console.log(device.label)
   });
 })
 console.log(cameraInputs.length)
