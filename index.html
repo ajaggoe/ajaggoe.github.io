@@ -42,18 +42,14 @@ const videoSelect = document.querySelector("select#videoSource");
 let nav = navigator.mediaDevices.enumerateDevices()
 .then(gotDevices)
 
-var cameraInputs = []
-navigator.mediaDevices.enumerateDevices().then(devices => {
-  devices.forEach(device => {
-    if (device.kind === "videoinput"){
-      cameraInputs.push({id: device.deviceId, label: device.label})
-    }
-    console.log(device.label)
-  });
-})
-console.log(cameraInputs.length)
-document.getElementById("light").innerHTML = `${cameraInputs.length} and first one is ${cameraInputs[0]}`
-console.log(cameraInputs[0])
+var cameraInputs = navigator.mediaDevices.enumerateDevices().then(devices => {
+  const inputs = devices.filter((device) => device.kind === 'videoinput');
+  console.log(cameraInputs.length)
+  document.getElementById("light").innerHTML = `${cameraInputs.length} and first one is ${cameraInputs[0]}`
+  console.log(cameraInputs[0])
+});
+
+
 
 
 function showVid() {
