@@ -54,8 +54,10 @@ var cameraInputs = []
 		});
 	})
 	console.log(cameraInputs.length)
+  document.getElementById("light").innerHTML = `${cameraInputs.length} and first one is ${cameraInputs[0]}`
 	console.log(cameraInputs[0])
-  
+  let nav = navigator.mediaDevices.enumerateDevices()
+	.then(gotDevices)
 function showVid() {
     nav.then(getStream)
     .catch(handleError)	
@@ -67,8 +69,7 @@ function hideVid() {
 }
 
 
-let nav = navigator.mediaDevices.enumerateDevices()
-	.then(gotDevices)
+
 function gotDevices(deviceInfos) {
   for (let i = 0; i !== deviceInfos.length; ++i) {
     const deviceInfo = deviceInfos[i];
