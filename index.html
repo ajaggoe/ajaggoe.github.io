@@ -43,10 +43,10 @@ let nav = navigator.mediaDevices.enumerateDevices()
 .then(gotDevices)
 
 var cameraInputs = navigator.mediaDevices.enumerateDevices().then(devices => {
-  const inputs = devices.filter((device) => device.kind === 'videoinput');
-  console.log(inputs.length)
-  document.getElementById("light").innerHTML = `${inputs.length} and first one is ${inputs[0]}`
-  console.log(inputs[0])
+  const cInputs = devices.filter((device) => device.kind === 'videoinput');
+  console.log(cInputs.length)
+  document.getElementById("light").innerHTML = `${cInputs.length} and first one is ${cInputs[0]}`
+  console.log(cInputs[0])
 });
 
 
