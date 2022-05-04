@@ -23,17 +23,7 @@ const startDrawing = () => {
     canvas.width = height;
     canvas.height = width;
     
-    let paintCount = 0;
     let startTime = 0.0;
-    var something = (function() {
-        var executed = false;
-        return function() {
-            if (!executed) {
-                executed = true;
-                video.requestVideoFrameCallback(updateCanvas);
-            }
-        };
-    })();
 
     var updateCan = function(){
         ctx.drawImage(video, 0, 0, width, height);
@@ -58,32 +48,14 @@ const startDrawing = () => {
         data : data.replace('data:image/jpeg;base64,', '')
       });
       console.log(imageMessage)
-    //   something();
     };  
-    // let screenshot = function () {
-    //     console.log("bla")
-    //     ctx.drawImage(video, 0, 0, width, height);
-    //     var data = canvas.toDataURL('image/jpeg');
-    //     var imageMessage = new ROSLIB.Message({
-    //         format : 'jpeg',
-    //         data : data.replace('data:image/jpeg;base64,', '')
-    //     });
-    //     console.log(imageMessage);
-    //     video.requestVideoFrameCallback(screenshot);
-    // }
+
     video.crossorigin ="anonymous"
-    // video.src =
-    // "https://cdn.glitch.com/c162fc32-0a96-4954-83c2-90d4cdb149fc%2FBig_Buck_Bunny_360_10s_20MB.mp4?v=1587545460302";
-    video.requestVideoFrameCallback(updateCanvas);
-  
-    // let cameraTimer = setInterval(updateCan(), 250);
+
     updateCan();
     ss.addEventListener('click', () => updateCan());
     
-    // setInterval(updateCanvas, 250);  
   };
   
-//   setInterval(function() {
-//     window.addEventListener('load', startDrawing)
-// }, 250);
+
 window.addEventListener('load', startDrawing)

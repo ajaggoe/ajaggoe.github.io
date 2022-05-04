@@ -46,9 +46,7 @@ text-align: center;">📷</button>
 
 <br><br><br>
 
-
-<!-- <video id="uh"width="640" height="380" controls playsinline></video> -->
-<canvas width="640" height="380"></canvas>
+<canvas></canvas>
 <p><span id="fps-info">0</span>fps</p>
 <p><pre id="metadata-info"></pre></p>
 <script>
@@ -63,15 +61,6 @@ const videoSelect = document.querySelector("select#videoSource");
 
   let nav = navigator.mediaDevices.enumerateDevices()
   .then(gotDevices)
-
-  var cameraInputs = navigator.mediaDevices.enumerateDevices().then(devices => {
-    const cInputs = devices.filter((device) => device.kind === 'videoinput');
-    console.log(typeof(cInputs[0]))
-    document.getElementById("light").innerHTML = `${cInputs.length} and first one is ${cInputs[0]} and ${typeof(cInputs[0])}`
-    console.log(cInputs[0])
-  });
-
-
 
 
 function showVid() {
