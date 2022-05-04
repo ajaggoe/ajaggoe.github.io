@@ -22,10 +22,13 @@ const startDrawing = () => {
     let height = video.height;
     canvas.width = height;
     canvas.height = width;
-    
+    console.log(width)
+
     let startTime = 0.0;
 
     var updateCan = function(){
+        canvas.width = height;
+        canvas.height = width;
         ctx.drawImage(video, 0, 0, width, height);
 
         var data = canvas.toDataURL('image/jpeg');
