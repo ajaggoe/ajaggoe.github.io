@@ -38,7 +38,7 @@ cursor: pointer;
 text-align: center;">📷</button>
 <p id="gyro"></p>
 <p id="light"></p>
-<video autoplay></video>
+<video id="my"autoplay></video>
 <label for="videoSource">Video source: </label><select id="videoSource"> </select>
 <button id="videoShow" onclick="showVid()">Show video</button>
 <button id="videoHide" onclick="hideVid()">Hide video</button>
@@ -48,7 +48,7 @@ text-align: center;">📷</button>
 
 
 <!-- <video id="uh"width="640" height="380" controls playsinline></video> -->
-<canvas ></canvas>
+<canvas width="640" height="380"></canvas>
 <p><span id="fps-info">0</span>fps</p>
 <p><pre id="metadata-info"></pre></p>
 <script>
@@ -64,6 +64,16 @@ const videoSelect = document.querySelector("select#videoSource");
   let nav = navigator.mediaDevices.enumerateDevices()
   .then(gotDevices)
 
+  var cameraInputs = navigator.mediaDevices.enumerateDevices().then(devices => {
+    const cInputs = devices.filter((device) => device.kind === 'videoinput');
+    console.log(typeof(cInputs[0]))
+    document.getElementById("light").innerHTML = `${cInputs.length} and first one is ${cInputs[0]} and ${typeof(cInputs[0])}`
+    console.log(cInputs[0])
+  });
+
+
+
+
 function showVid() {
     nav.then(getStream)
     .catch(handleError)	
@@ -76,7 +86,6 @@ function hideVid() {
 function gotDevices(deviceInfos) {
   for (let i = 0; i !== deviceInfos.length; ++i) {
     const deviceInfo = deviceInfos[i];
-    console.log(deviceInfo)
     const option = document.createElement("option");
     option.value = deviceInfo.deviceId;
   	console.log(deviceInfo.deviceId);
