@@ -18,8 +18,10 @@ const startDrawing = () => {
       }    
     });
     
-    let width = canvas.width;
-    let height = canvas.height;
+    let width = video.width;
+    let height = video.height;
+    canvas.width = width;
+    canvas.height = height;
     
     let paintCount = 0;
     let startTime = 0.0;
