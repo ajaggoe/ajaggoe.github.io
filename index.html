@@ -1,4 +1,7 @@
 <head>
+<script type="application/javascript" src="https://github.com/RobotWebTools/roslibjs/releases/download/1.2.0/roslib.js"></script>
+<script type="application/javascript" src="camera.js"></script>
+
   <style>
     html {
     --primary-color: #ffeb3b;
@@ -24,14 +27,26 @@ Console output
 <p id="shake-count">0</p>
 <p id="acc-info"></p>
 <p>gyroscope</p>
+<button id="play" type="button">⏯</button>
+<button id="ss" type="button">📷</button>
 <p id="gyro"></p>
 <p id="light"></p>
-<video autoplay></video>
+<!-- <video id="my"autoplay></video> -->
 <label for="videoSource">Video source: </label><select id="videoSource"> </select>
 <button id="videoShow" onclick="showVid()">Show video</button>
 <button id="videoHide" onclick="hideVid()">Hide video</button>
 
+
+<br><br><br>
+
+
+<video id="uh"width="640" height="380" controls playsinline></video>
+<canvas width="640" height="380"></canvas>
+<p><span id="fps-info">0</span>fps</p>
+<p><pre id="metadata-info"></pre></p>
 <script>
+
+  console.log("started");
 const constraints = {
   video: true,
 };
@@ -39,15 +54,15 @@ const constraints = {
 const video = document.querySelector("video");
 const videoSelect = document.querySelector("select#videoSource");
 
-let nav = navigator.mediaDevices.enumerateDevices()
-.then(gotDevices)
+// let nav = navigator.mediaDevices.enumerateDevices()
+// .then(gotDevices)
 
-var cameraInputs = navigator.mediaDevices.enumerateDevices().then(devices => {
-  const cInputs = devices.filter((device) => device.kind === 'videoinput');
-  console.log(cInputs.length)
-  document.getElementById("light").innerHTML = `${cInputs.length} and first one is ${cInputs[0]}`
-  console.log(cInputs[0])
-});
+// var cameraInputs = navigator.mediaDevices.enumerateDevices().then(devices => {
+//   const cInputs = devices.filter((device) => device.kind === 'videoinput');
+//   console.log(typeof(cInputs[0]))
+//   document.getElementById("light").innerHTML = `${cInputs.length} and first one is ${cInputs[0]} and ${typeof(cInputs[0])}`
+//   console.log(cInputs[0])
+// });
 
 
 
@@ -103,7 +118,5 @@ function handleError(error) {
 }
 
 </script>
-<script type="application/javascript" src="sensors_deviceMotion.js">	
-
-</script>
+<script type="application/javascript" src="sensors_deviceMotion.js"></script>
 </body>
