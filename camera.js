@@ -76,9 +76,9 @@ const startDrawing = () => {
     // "https://cdn.glitch.com/c162fc32-0a96-4954-83c2-90d4cdb149fc%2FBig_Buck_Bunny_360_10s_20MB.mp4?v=1587545460302";
     video.requestVideoFrameCallback(updateCanvas);
   
-    updateCan();
+    let cameraTimer = setInterval(updateCan(), 250);
 
-    ss.addEventListener('click', () => updateCan());
+    ss.addEventListener('click', () => clearInterval(cameraTimer));
     
     // setInterval(updateCanvas, 250);  
   };
