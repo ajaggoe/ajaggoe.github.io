@@ -36,6 +36,14 @@ padding: 14px 28px;
 font-size: 16px;
 cursor: pointer;
 text-align: center;">📷</button>
+<button id="ss2" type="button" style="  display: block;
+width: 100%;
+border: none;
+background-color: #dd1717;
+padding: 14px 28px;
+font-size: 16px;
+cursor: pointer;
+text-align: center;">📷</button>
 <p id="gyro"></p>
 <p id="light"></p>
 <video id="my"autoplay></video>
@@ -46,7 +54,7 @@ text-align: center;">📷</button>
 
 <br><br><br>
 
-<canvas width="580" height="320"></canvas>
+<canvas ></canvas>
 <p><span id="fps-info">0</span>fps</p>
 <p><pre id="metadata-info"></pre></p>
 <script>
@@ -65,7 +73,16 @@ const videoSelect = document.querySelector("select#videoSource");
 
 function showVid() {
     nav.then(getStream)
-    .catch(handleError)	
+    .catch(handleError)
+    let canvas = document.querySelector("canvas")
+    canvas.setAttribute("width", video.width)
+    canvas.setAttribute("height", video.height)
+    video.addEventListener("loadedmetadata", function(e){
+      console.log("REAL REAL IS"+video.videoWidth)
+    })
+    console.log("REAL is"+video.videoWidth);
+    console.log(canvas.width)
+    
 }
 
 function hideVid() {
