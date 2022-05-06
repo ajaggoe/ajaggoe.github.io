@@ -12,47 +12,29 @@ const startDrawing = () => {
     if(video.crossOrigin !== "anonymous") {
         video.crossOrigin = "anonymous"
     }
-    video.addEventListener('play', () => {
-      if (!('requestVideoFrameCallback' in HTMLVideoElement.prototype)) {
-        return alert('Your browser does not support the `Video.requestVideoFrameCallback()` API.');
-      }    
-    });
+
     
-    let width = this.canvas.width;
-    let height = this.canvas.height;
+    let width = canvas.width;
+    let height = canvas.height;
     console.log(width)
 
     let startTime = 0.0;
 
-    var updateCan = function(){
+    let updateCan = function(){
         ctx.drawImage(video, 0, 0, width, height);
 
-        var data = canvas.toDataURL('image/jpeg');
-        var imageMessage = new ROSLIB.Message({
+        let data = canvas.toDataURL('image/jpeg');
+        let imageMessage = new ROSLIB.Message({
           format : 'jpeg',
           data : data.replace('data:image/jpeg;base64,', '')
         });
         console.log(imageMessage)
     };
-    const updateCanvas = (now, metadata) => {
-      if (startTime === 0.0) {
-        startTime = now;
-      }
   
-      ctx.drawImage(video, 0, 0, width, height);
-
-      var data = canvas.toDataURL('image/jpeg');
-      var imageMessage = new ROSLIB.Message({
-        format : 'jpeg',
-        data : data.replace('data:image/jpeg;base64,', '')
-      });
-      console.log(imageMessage)
-    };  
 
     video.crossorigin ="anonymous"
-
-    updateCan();
-    ss.addEventListener('click', () => updateCan());
+    // updateCan();
+    ss.addEventListener('click', () => setInterval(updateCan(), 20));
     
   };
   

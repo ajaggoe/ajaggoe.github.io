@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="600" height="300"></canvas>
+    <script>
+
+        var startX = 20;
+        var startY = 100;
+        
+        var canvas = document.getElementById('myCanvas'); 
+        var ctx = canvas.getContext('2d'); 
+        
+        var moveCircle = setInterval(animate, 30);
+        
+        function animate() {
+
+            if (startX < 580)
+            {
+                ctx.fillStyle = 'red';
+                ctx.beginPath(); 
+                ctx.arc(startX, startY, 10, 0 * Math.PI, 2 * Math.PI); 
+                ctx.fill();
+
+                startX++;
+            }
+            
+        }
+      
+   </script>
+  </body>
+</html>  
