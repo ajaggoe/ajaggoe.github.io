@@ -66,7 +66,16 @@ const startDrawing = () => {
   })
 };
 
-
+if ( typeof( DeviceOrientationEvent ) !== 'undefined' &&
+         typeof( DeviceOrientationEvent.requestPermission ) === 'function' ) {
+      DeviceMotionEvent.requestPermission().then((reponse) => {
+        if (reponse === 'granted') {
+          document.getElementById('error').innerHTML = "YAH BISH"
+        }
+      }).catch(console.log);
+    } else {
+      console.log('DeviceOrientation not supported!');
+    }
 window.addEventListener('load', startDrawing)
 </script>
 
