@@ -66,16 +66,13 @@ const startDrawing = () => {
   })
 };
 
-if ( typeof( DeviceOrientationEvent ) !== 'undefined' &&
-         typeof( DeviceOrientationEvent.requestPermission ) === 'function' ) {
-      DeviceMotionEvent.requestPermission().then((reponse) => {
-        if (reponse === 'granted') {
-          document.getElementById('error').innerHTML = "YAH BISH"
-        }
-      }).catch(console.log);
-    } else {
-      console.log('DeviceOrientation not supported!');
-    }
+if (window.DeviceOrientationEvent) {
+    // setup real compass thing, with event.alpha
+    document.getElementById('error').innerHTML = "haz!";
+} else {
+    // setup some mouse following hack
+    document.getElementById('error').innerHTML = "nope";
+}
 window.addEventListener('load', startDrawing)
 </script>
 
