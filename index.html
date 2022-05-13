@@ -1,6 +1,74 @@
 <head>
 <script type="application/javascript" src="https://github.com/RobotWebTools/roslibjs/releases/download/1.2.0/roslib.js"></script>
-<script type="application/javascript" src="camera.js"></script>
+<script type="application/javascript">
+const startDrawing = () => { 
+  const button = document.querySelector("button#play");
+  const ss = document.querySelector("button#ss");
+  const ss2 = document.querySelector("button#ss2");
+  const video = document.querySelector("video");
+  const brr = document.createElement('video')
+  console.log("IS VIDEO")
+  console.log(video instanceof window.HTMLVideoElement)
+  console.log(brr instanceof window.HTMLVideoElement)
+  let canvas = document.createElement("canvas");
+  let width = null;
+  let height = null
+  
+  button.addEventListener('click', () => video.paused ? video.play() : video.pause());
+
+  if(video.crossOrigin !== "anonymous") {
+      video.crossOrigin = "anonymous"
+  }
+
+  video.addEventListener("loadedmetadata", function(e){
+    console.log("width = "+video.videoWidth+"\nheight = "+video.videoHeight)
+    width = video.videoWidth;
+    height = video.videoHeight;
+  })
+
+  let updateCan = function(){
+      canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      let data = canvas.toDataURL('image/jpeg');
+      let imageMessage = new ROSLIB.Message({
+        format : 'jpeg',
+        data : data.replace('data:image/jpeg;base64,', '')
+      });
+      return imageMessage;
+
+      
+  };
+
+  video.crossorigin ="anonymous"
+  // updateCan();
+  let timer;
+  let started = true;
+  let i = 0;
+  function boop () {
+    canvas.width = width;
+    canvas.height = height;
+    console.log(canvas.width)
+    if(started){
+      timer = setInterval(() => {
+        let imageMessage = updateCan();
+        window.requestAnimationFrame(updateCan);
+        console.log(imageMessage.data)
+        console.log(i++)
+      }, 1000);  
+      started = false;
+      
+    }
+  }
+  ss.addEventListener('click', boop);
+  ss2.addEventListener('click', () => {
+    clearInterval(timer);
+    started = true;
+  })
+};
+
+
+window.addEventListener('load', startDrawing)
+</script>
 
   <style>
     html {
@@ -31,7 +99,7 @@ Console output
 <button id="ss" type="button" style="  display: block;
 width: 100%;
 border: none;
-background-color: #f4e800;
+background-color: #3fba19;
 padding: 14px 28px;
 font-size: 16px;
 cursor: pointer;
@@ -54,12 +122,12 @@ text-align: center;">📷</button>
 
 <br><br><br>
 
-<canvas ></canvas>
+<!-- <canvas ></canvas> -->
 <p><span id="fps-info">0</span>fps</p>
 <p><pre id="metadata-info"></pre></p>
 <script>
 
-  console.log("started");
+console.log("started");
 const constraints = {
   video: true,
 };
@@ -74,15 +142,10 @@ const videoSelect = document.querySelector("select#videoSource");
 function showVid() {
     nav.then(getStream)
     .catch(handleError)
-    let canvas = document.querySelector("canvas")
-    canvas.setAttribute("width", video.width)
-    canvas.setAttribute("height", video.height)
+
     video.addEventListener("loadedmetadata", function(e){
-      console.log("REAL REAL IS"+video.videoWidth)
-    })
-    console.log("REAL is"+video.videoWidth);
-    console.log(canvas.width)
-    
+      // console.log("REAL REAL IS"+video.videoWidth)
+    })    
 }
 
 function hideVid() {
@@ -94,7 +157,7 @@ function gotDevices(deviceInfos) {
     const deviceInfo = deviceInfos[i];
     const option = document.createElement("option");
     option.value = deviceInfo.deviceId;
-  	console.log(deviceInfo.deviceId);
+  	console.log(deviceInfo);
     if (deviceInfo.kind === "videoinput") {
       option.text = deviceInfo.label || "camera " + (videoSelect.length + 1);
       videoSelect.appendChild(option);
@@ -111,9 +174,7 @@ function getStream() {
   }
 
   const constraints = {
-    video: {
-      deviceId: { exact: videoSelect.value },
-    }
+    video: true
   };
 
   navigator.mediaDevices
