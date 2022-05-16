@@ -55,7 +55,7 @@ console.log(`number of touch is ${navigator.maxTouchPoints}`)
 console.log(typeof DeviceMotionEvent.requestPermission === 'function')
 if(iOS){
   this.document.getElementById("device-info").innerHTML = `This is an iOS device, specifically: ${navigator.userAgent}`
-  this.document.getElementById("device-info").innerHTML += navigator.maxTouchPoints
+  this.document.getElementById("device-info").innerHTML += ` and blyat ${navigator.maxTouchPoints}`
   let permbutton = this.document.createElement("button")
   permbutton.setAttribute('id', 'perm');
   permbutton.innerHTML = "requestPermission"
