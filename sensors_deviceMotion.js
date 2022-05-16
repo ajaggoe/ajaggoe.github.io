@@ -64,7 +64,7 @@ if(iOS){
   })
   this.document.body.appendChild(permbutton);
 } else {
-  this.document.getElementById("acc-info").innerHTML = `This is an not an iOS device, specifically: ${navigator.userAgent}`
+  this.document.getElementById("device-info").innerHTML = `This is an not an iOS device, specifically: ${navigator.userAgent}`
   if(window.DeviceMotionEvent){
     window.addEventListener('devicemotion', function(event) {
         console.log(event.acceleration.x + ' m/s2');
