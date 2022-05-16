@@ -56,7 +56,7 @@ if(iOS){
   permbutton.innerHTML = "requestPermission"
   permbutton.addEventListener('click', () => {
     alert("ALERT")
-    DeviceOrientationEvent.requestPermission().then((reponse) => {
+    DeviceOrientationEvent['requestPermission']().then((reponse) => {
       if (reponse === 'granted') {
         return true;
       }
