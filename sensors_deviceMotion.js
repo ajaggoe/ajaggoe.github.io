@@ -47,9 +47,8 @@ else{
 
 
 let iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
-console.log(navigator.userAgent.includes("Mac OS") ? "blyat yes" : "blyat no")
+console.log(navigator.userAgent.includes("Mac") ? "blyat yes" : "blyat no")
 console.log(navigator.userAgent.split(' '))
-console.log(navigator.userAgent.charAt(15))
 if(iOS){
   this.document.getElementById("device-info").innerHTML = `This is an iOS device, specifically: ${navigator.userAgent}`
   let permbutton = this.document.createElement("button")
