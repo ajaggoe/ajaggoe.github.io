@@ -54,7 +54,9 @@ if(iOS){
   this.document.getElementById("acc-info").innerHTML += `This is an iOS device, specifically: ${navigator.userAgent}`
   let permbutton = this.document.createElement("button")
   permbutton.setAttribute('id', 'perm');
+  permbutton.innerHTML = "requestPermission"
   permbutton.addEventListener('click', () => {
+    alert("ALERT")
     DeviceMotionEvent.requestPermission().then((reponse) => {
       if (reponse === 'granted') {
         return true;
