@@ -48,7 +48,7 @@ else{
 
 let iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
 if(iOS){
-  this.document.getElementById("acc-info").innerHTML = `Wow this actually works for ios`
+  this.document.getElementById("acc-info").innerHTML += `This is an iOS device, specifically:${navigator.userAgent}`
 }else {
   if(window.DeviceMotionEvent){
     window.addEventListener('devicemotion', function(event) {
