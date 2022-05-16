@@ -45,16 +45,16 @@ else{
     console.error("idk bro why you no work")
 }
 
-
 let iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
-console.log(navigator.userAgent.includes("Mac") ? "blyat yes" : "blyat no")
-console.log(navigator.userAgent.split(' '))
+console.log(iOS ? "blyat yes" : "blyat no")
+console.log(typeof DeviceMotionEvent.requestPermission === 'function')
 if(iOS){
   this.document.getElementById("device-info").innerHTML = `This is an iOS device, specifically: ${navigator.userAgent}`
   let permbutton = this.document.createElement("button")
   permbutton.setAttribute('id', 'perm');
   permbutton.innerHTML = "requestPermission"
   permbutton.addEventListener('click', () => {
+    console.log("DOES WORK")
     alert("ALERT")
     DeviceOrientationEvent['requestPermission']().then((reponse) => {
       if (reponse === 'granted') {
