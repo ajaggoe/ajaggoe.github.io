@@ -47,16 +47,17 @@ else{
 
 
 let iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+console.log(navigator.userAgent.includes("Mac OS X") ? "blyat yes" : "blyat no")
 if(iOS){
-  this.document.getElementById("acc-info").innerHTML += `This is an iOS device, specifically:${navigator.userAgent}`
+  this.document.getElementById("acc-info").innerHTML += `This is an iOS device, specifically: ${navigator.userAgent}`
 }else {
-  this.document.getElementById("acc-info").innerHTML += `This is an not an iOS device, specifically:${navigator.userAgent}`
+  this.document.getElementById("acc-info").innerHTML += `This is an not an iOS device, specifically: ${navigator.userAgent}`
   if(window.DeviceMotionEvent){
     window.addEventListener('devicemotion', function(event) {
         console.log(event.acceleration.x + ' m/s2');
         if(event.acceleration.x){
-          this.document.getElementById("acc-info").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
-          this.document.getElementById("gyro").style.left = event.x * 3 + 20
+          this.document.getElementById("acc-info").innerHTML += `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
+          this.document.getElementById("gyro").style.left += event.x * 3 + 20
         }
     });
   } 
