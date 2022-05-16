@@ -44,6 +44,10 @@ if(requestPermission()){
 else{
     console.error("idk bro why you no work")
 }
+var ish = document.createElement("input")
+ish.type = "number"
+ish.value = 2
+console.log(parseInt(ish.value))
 
 let iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
 console.log(iOS ? "blyat yes" : "blyat no")

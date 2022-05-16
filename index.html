@@ -73,19 +73,19 @@ if (window.DeviceOrientationEvent) {
 window.addEventListener('load', startDrawing)
 </script>
 
-  <style>
-    html {
-    --primary-color: #ffeb3b;
-    --border-color: var(--primary-color);
-    --text-color: #333;
-    --background-color: #f3f;
-  }
-  html.dark {
-    --border-color: #ccc;
-    --text-color: #ccc;
-    --background-color: #181818;
-  }
-  </style> 
+<style>
+  html {
+  --primary-color: #ffeb3b;
+  --border-color: var(--primary-color);
+  --text-color: #333;
+  --background-color: #f3f;
+}
+html.dark {
+  --border-color: #ccc;
+  --text-color: #ccc;
+  --background-color: #181818;
+}
+</style> 
 </head>
 <body>
 <button class="switch">On / Off</button>
@@ -94,7 +94,7 @@ Console output
 </h2>
 <div id="console">
 </div>
-<p id="device-info"></p>
+<h1 id="device-info"></h1>
 <p id="error"></p>
 <p id="shake-count">0</p>
 <p id="acc-info"></p>
