@@ -53,9 +53,9 @@ let iOS = !window.MSStream && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAg
 console.log(navigator.userAgent.includes("Macintosh") ? "blyat yes" : "blyat no")
 console.log(`number of touch is ${navigator.maxTouchPoints}`)
 console.log(typeof DeviceMotionEvent.requestPermission === 'function')
-this.document.getElementById("device-info").innerHTML += ` and blyat ${navigator.maxTouchPoints}`
+this.document.getElementById("device-info").innerHTML = ` and blyat ${navigator.maxTouchPoints}`
 if(iOS){
-  this.document.getElementById("device-info").innerHTML = `This is an iOS device, specifically: ${navigator.userAgent}`
+  this.document.getElementById("device-info").innerHTML += `<br>This is an iOS device, specifically: ${navigator.userAgent}`
   let permbutton = this.document.createElement("button")
   permbutton.setAttribute('id', 'perm');
   permbutton.innerHTML = "requestPermission"
