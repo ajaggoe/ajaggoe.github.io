@@ -52,7 +52,17 @@ console.log(navigator.userAgent.split(' '))
 console.log(navigator.userAgent.charAt(15))
 if(iOS){
   this.document.getElementById("acc-info").innerHTML += `This is an iOS device, specifically: ${navigator.userAgent}`
-}else {
+  let permbutton = this.document.createElement("button")
+  permbutton.setAttribute('id', 'perm');
+  permbutton.addEventListener('click', () => {
+    DeviceMotionEvent.requestPermission().then((reponse) => {
+      if (reponse === 'granted') {
+        return true;
+      }
+    })
+  })
+  this.document.body.appendChild(permbutton);
+} else {
   this.document.getElementById("acc-info").innerHTML += `This is an not an iOS device, specifically: ${navigator.userAgent}`
   if(window.DeviceMotionEvent){
     window.addEventListener('devicemotion', function(event) {
