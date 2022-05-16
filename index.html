@@ -7,9 +7,6 @@ const startDrawing = () => {
   const ss2 = document.querySelector("button#ss2");
   const video = document.querySelector("video");
   const brr = document.createElement('video')
-  console.log("IS VIDEO")
-  console.log(video instanceof window.HTMLVideoElement)
-  console.log(brr instanceof window.HTMLVideoElement)
   let canvas = document.createElement("canvas");
   let width = null;
   let height = null
@@ -163,12 +160,11 @@ function gotDevices(deviceInfos) {
     const deviceInfo = deviceInfos[i];
     const option = document.createElement("option");
     option.value = deviceInfo.deviceId;
-  	console.log(deviceInfo);
     if (deviceInfo.kind === "videoinput") {
       option.text = deviceInfo.label || "camera " + (videoSelect.length + 1);
       videoSelect.appendChild(option);
     } else {
-      console.log("Found another kind of device: ", deviceInfo);
+      console.log("Found another kind of device: ", deviceInfo.kind);
     }
   }
 }
