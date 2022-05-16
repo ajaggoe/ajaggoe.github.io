@@ -47,7 +47,8 @@ else{
 
 
 let iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
-console.log(navigator.userAgent.includes("Mac OS X") ? "blyat yes" : "blyat no")
+console.log(navigator.userAgent.includes("Mac OS") ? "blyat yes" : "blyat no")
+console.log(navigator.userAgent.split(' '))
 if(iOS){
   this.document.getElementById("acc-info").innerHTML += `This is an iOS device, specifically: ${navigator.userAgent}`
 }else {
