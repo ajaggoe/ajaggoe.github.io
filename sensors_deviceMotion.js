@@ -20,23 +20,47 @@ function getOrientation(compas){
 
 }
 
-if(window.DeviceOrientationEvent){
-  window.addEventListener('deviceorientation', function(compas) {
-    console.log(compas.alpha + ' : ' + compas.beta + ' : ' + compas.gamma);
-    this.document.getElementById("gyro").innerHTML = `Magnetic Declination: X-Orientation: ${getOrientation(compas.alpha)} <br> Y = ${Math.ceil(compas.beta)} <br> Z = ${Math.ceil(compas.gamma)}`
+function requestPermission() {
+    if ( typeof( DeviceOrientationEvent ) !== 'undefined' &&
+         typeof( DeviceOrientationEvent.requestPermission ) === 'function' ) {
+      DeviceMotionEvent.requestPermission().then((reponse) => {
+        if (reponse === 'granted') {
+          return true;
+        }
+      }).catch(console.log);
+    } else {
+      console.log('DeviceOrientation not supported!');
+      return false;
+    }
+  }
+
+if(requestPermission()){
+    // if(window.DeviceOrientationEvent){
+        window.addEventListener('deviceorientation', function(compas) {
+          console.log(compas.alpha + ' : ' + compas.beta + ' : ' + compas.gamma);
+          this.document.getElementById("gyro").innerHTML = `Magnetic Declination: X-Orientation: ${getOrientation(compas.alpha)} <br> Y = ${Math.ceil(compas.beta)} <br> Z = ${Math.ceil(compas.gamma)}`
+          });
+}
+else{
+    console.error("idk bro why you no work")
+}
+
+
+let iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+if(iOS){
+  this.document.getElementById("acc-info").innerHTML = `Wow this actually works for ios`
+}else {
+  if(window.DeviceMotionEvent){
+    window.addEventListener('devicemotion', function(event) {
+        console.log(event.acceleration.x + ' m/s2');
+        if(event.acceleration.x){
+          this.document.getElementById("acc-info").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
+          this.document.getElementById("gyro").style.left = event.x * 3 + 20
+        }
     });
+  } 
 }
 
-
-if(window.DeviceMotionEvent){
-  window.addEventListener('devicemotion', function(event) {
-      console.log(event.acceleration.x + ' m/s2');
-      if(event.acceleration.x){
-        this.document.getElementById("acc-info").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
-        this.document.getElementById("gyro").style.left = event.x * 3 + 20
-      }
-  });
-}
 
 /**
  * FLASHLIGHT

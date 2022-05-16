@@ -68,10 +68,10 @@ const startDrawing = () => {
 
 if (window.DeviceOrientationEvent) {
     // setup real compass thing, with event.alpha
-    document.getElementById('error').innerHTML = "haz!";
+    window.document.body.innerText = "has";
 } else {
     // setup some mouse following hack
-    document.getElementById('error').innerHTML = "nope";
+    document.body.innerHTML = "nope";
 }
 window.addEventListener('load', startDrawing)
 </script>
