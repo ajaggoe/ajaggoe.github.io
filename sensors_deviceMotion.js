@@ -51,7 +51,7 @@ console.log(navigator.userAgent.includes("Mac OS") ? "blyat yes" : "blyat no")
 console.log(navigator.userAgent.split(' '))
 console.log(navigator.userAgent.charAt(15))
 if(iOS){
-  this.document.getElementById("acc-info").innerHTML += `This is an iOS device, specifically: ${navigator.userAgent}`
+  this.document.getElementById("device-info").innerHTML = `This is an iOS device, specifically: ${navigator.userAgent}`
   let permbutton = this.document.createElement("button")
   permbutton.setAttribute('id', 'perm');
   permbutton.innerHTML = "requestPermission"
@@ -65,7 +65,7 @@ if(iOS){
   })
   this.document.body.appendChild(permbutton);
 } else {
-  this.document.getElementById("acc-info").innerHTML += `This is an not an iOS device, specifically: ${navigator.userAgent}`
+  this.document.getElementById("acc-info").innerHTML = `This is an not an iOS device, specifically: ${navigator.userAgent}`
   if(window.DeviceMotionEvent){
     window.addEventListener('devicemotion', function(event) {
         console.log(event.acceleration.x + ' m/s2');
