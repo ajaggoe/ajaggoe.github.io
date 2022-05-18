@@ -50,15 +50,17 @@ ish.value = 2
 console.log(parseInt(ish.value))
 
 let iOS = !window.MSStream && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)
-console.log(navigator.userAgent.includes("Macintosh") ? "blyat yes" : "blyat no")
+console.log(iOS ? "blyat yes" : "blyat no")
 console.log(`number of touch is ${navigator.maxTouchPoints}`)
 console.log(typeof DeviceMotionEvent.requestPermission === 'function')
 this.document.getElementById("device-info").innerHTML = ` and blyat ${navigator.maxTouchPoints}`
 if(iOS){
   this.document.getElementById("device-info").innerHTML += `<br>This is an iOS device, specifically: ${navigator.userAgent}`
+  
   let permbutton = this.document.createElement("button")
   permbutton.setAttribute('id', 'perm');
   permbutton.innerHTML = "requestPermission"
+
   permbutton.addEventListener('click', () => {
   this.document.getElementById("device-info").innerHTML += `<br>BUTTON SHOULD WORK`
     if(typeof(DeviceOrientationEvent.requestPermission) === "function"){
@@ -69,7 +71,8 @@ if(iOS){
         }
       })
     }
-  })
+  });
+  
   this.document.body.appendChild(permbutton);
 } else {
   this.document.getElementById("device-info").innerHTML = `This is an not an iOS device, specifically: ${navigator.userAgent}`
