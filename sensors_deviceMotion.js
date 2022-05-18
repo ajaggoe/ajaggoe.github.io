@@ -60,9 +60,9 @@ if(iOS){
   permbutton.setAttribute('id', 'perm');
   permbutton.innerHTML = "requestPermission"
   permbutton.addEventListener('click', () => {
-    console.log("DOES WORK")
-    alert("ALERT")
+  this.document.getElementById("device-info").innerHTML += `<br>BUTTON SHOULD WORK`
     if(typeof(DeviceOrientationEvent.requestPermission) === "function"){
+      this.document.getElementById("device-info").innerHTML += `<br>AND REQUEST PERMISSION`
       DeviceOrientationEvent.requestPermission().then((reponse) => {
         if (reponse === 'granted') {
           return true;
