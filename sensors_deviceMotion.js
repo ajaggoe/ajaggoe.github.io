@@ -67,7 +67,7 @@ if(iOS){
       this.document.getElementById("device-info").innerHTML += `<br>AND REQUEST PERMISSION`
       DeviceOrientationEvent.requestPermission().then((reponse) => {
         if (reponse === 'granted') {
-          return true;
+          this.document.getElementById("device-info").innerHTML += `<br>AND PERMISSION GRANTED` 
         }
       })
     }
