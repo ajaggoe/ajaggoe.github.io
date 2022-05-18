@@ -63,11 +63,18 @@ if(iOS){
 
   permbutton.addEventListener('click', () => {
   this.document.getElementById("device-info").innerHTML += `<br>BUTTON SHOULD WORK`
-    if(typeof(DeviceOrientationEvent.requestPermission) === "function"){
+    if(typeof(DeviceMotionEvent.requestPermission) === "function"){
       this.document.getElementById("device-info").innerHTML += `<br>AND REQUEST PERMISSION`
-      DeviceOrientationEvent.requestPermission().then((reponse) => {
+      DeviceMotionEvent.requestPermission().then((reponse) => {
         if (reponse === 'granted') {
           this.document.getElementById("device-info").innerHTML += `<br>AND PERMISSION GRANTED` 
+          window.addEventListener('devicemotion', function(event) {
+            console.log(event.acceleration.x + ' m/s2');
+            if(event.acceleration.x){
+              this.document.getElementById("acc-info").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
+              this.document.getElementById("gyro").style.left = event.x * 3 + 20
+            }
+        });
         }
       })
     }
