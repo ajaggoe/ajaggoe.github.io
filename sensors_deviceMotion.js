@@ -63,24 +63,30 @@ if(iOS){
   this.document.getElementById("device-info").innerHTML += `<br>This is an iOS device`
   
   let permbutton = this.document.createElement("button")
-  permbutton.setAttribute('id', 'perm');
   permbutton.innerHTML = "requestPermission"
-  let permission = false;
+  var permission = false;
+  let x = 1;
   permbutton.addEventListener('click', () => {
     permission = !requestPermissionIOS(DeviceMotionEvent);
-  });
+    x=2;
+    console.log("permission "+permission)
 
-  if(permission)
-  window.addEventListener('devicemotion', function(event) {
-    console.log(event.acceleration.x + ' m/s2');
-    if(event.acceleration.x){
-      this.document.getElementById("acc-info").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
-      this.document.getElementById("gyro").style.left = event.x * 3 + 20
-    }
-});
+  });
+  console.log("x "+x)
+  if(permission){
+    console.log("ART")
+    window.addEventListener('devicemotion', function(event) {
+      console.log(event.acceleration.x + ' m/s2');
+      if(event.acceleration.x){
+        this.document.getElementById("acc-info").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
+        this.document.getElementById("gyro").style.left = event.x * 3 + 20
+      }
+    });
+  }
+  
   this.document.body.appendChild(permbutton);
 } else {
-  this.document.getElementById("device-info").innerHTML = `This is an not an iOS device, specifically: ${navigator.userAgent}`
+  this.document.getElementById("device-info").innerHTML = `This is an not an iOS device`
   if(window.DeviceMotionEvent){
     window.addEventListener('devicemotion', function(event) {
         console.log(event.acceleration.x + ' m/s2');
