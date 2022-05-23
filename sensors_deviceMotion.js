@@ -63,6 +63,7 @@ function clickHandler(event){
       if (response==='granted') {
         // If user is not on iOS, sensor data can be read as normal.
         window.addEventListener('deviceorientation', (event) => {
+          this.document.getElementById("motion").innerHTML = `UUUUUUUUUUU`
           console.log(event.acceleration.x + ' m/s2');
           if(event.acceleration.x){
             this.document.getElementById("motion").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
@@ -73,6 +74,7 @@ function clickHandler(event){
           }
         });
       } else {
+        this.document.getElementById("motion").innerHTML = "No permission"
         throw new PermissionDeniedError('No permission granted for Device Orientation');
       }
     });
