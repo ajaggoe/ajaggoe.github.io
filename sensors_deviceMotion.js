@@ -72,42 +72,17 @@ function requestPermissionIOS() {
           window.alert('acceleration not supported!');
         }
       } else {
+        window.alert("no permission")
         this.document.getElementById("motion").innerHTML = "No permission"
         throw new PermissionDeniedError('No permission granted for Device Orientation');
       }
     });
+    
   });
 
   window.document.body.appendChild(permbutton);
 }
 
-function clickHandler(event){
-  if (typeof(event.requestPermission) === 'function') {
-    // if permission, Enable callback for deviceOrientationEvent
-    event.requestPermission().then((response) => {
-      if (response==='granted') {
-        // If user is not on iOS, sensor data can be read as normal.
-        window.addEventListener('deviceorientation', (event) => {
-          this.document.getElementById("motion").innerHTML = `UUUUUUUUUUU`
-          console.log(event.acceleration.x + ' m/s2');
-          if(event.acceleration.x){
-            this.document.getElementById("motion").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
-            this.document.getElementById("motion").style.left = event.x * 3 + 20
-          }
-          if(event.alpha){
-            this.document.getElementById("orientation").innerHTML = `alpha: ${event.alpha}`
-          }
-        });
-      } else {
-        this.document.getElementById("motion").innerHTML = "No permission"
-        throw new PermissionDeniedError('No permission granted for Device Orientation');
-      }
-    });
-  } else {
-    this.document.getElementById("device-info").innerHTML += `<br>This aint working bruv`
-    throw new Error('requestPermission for device orientation iOS is not a function!');
-  }
-}
 console.log("HELLO IS TPYE")
 console.log(this.document.querySelector('button'))
 let iOS = !window.MSStream && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)
@@ -115,6 +90,13 @@ if(iOS){
   this.document.getElementById("device-info").innerHTML += `<br>This is an iOS device, specifically:${navigator.userAgent.substring(0, 20)}`
   
   requestPermissionIOS()
+  window.addEventListener('deviceorientation', (event) => {
+    if(event.isTrusted){
+      this.document.getElementById("orientation").innerHTML = `alpha: ${event.alpha}`
+      this.document.getElementById("orientation").style.left = event.gamma*3+20
+    }
+
+});
 } else {
   this.document.getElementById("device-info").innerHTML = `This is an not an iOS device`
   if(window.DeviceMotionEvent){
