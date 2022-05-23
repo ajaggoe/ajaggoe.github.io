@@ -45,7 +45,7 @@ else{
     console.error("idk bro why you no work")
 }
 
-function requestPermissionIOS(event) {
+function requestPermissionIOS() {
   const permbutton = window.document.createElement('button');
   permbutton.innerHTML = 'requestPermission';
   permbutton.addEventListener('click', () => {
@@ -64,7 +64,7 @@ function requestPermissionIOS(event) {
         });
         if (window.DeviceMotionEvent) {
           window.addEventListener('devicemotion', (event) => {
-            this.document.getElementById("motion").style.left = event.x * 3 + 20
+            this.document.getElementById("motion").style.left = event.acceleration.x * 3 + 20
             this.document.getElementById("motion").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
           });
         } else {
@@ -113,8 +113,7 @@ let iOS = !window.MSStream && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAg
 if(iOS){
   this.document.getElementById("device-info").innerHTML += `<br>This is an iOS device, specifically:${navigator.userAgent.substring(0, 20)}`
   
-  requestPermissionIOS(window.DeviceMotionEvent)
-  requestPermissionIOS(window.DeviceOrientationEvent)
+  requestPermissionIOS()
 } else {
   this.document.getElementById("device-info").innerHTML = `This is an not an iOS device`
   if(window.DeviceMotionEvent){
