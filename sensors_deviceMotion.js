@@ -46,45 +46,41 @@ else{
 }
 
 function requestPermissionIOS(event) {
-  this.document.getElementById("device-info").innerHTML += `<br>AND WORKS IF IOS`
-  if(typeof(event.requestPermission) === "function"){
-    this.document.getElementById("device-info").innerHTML += `<br>AND REQUEST PERMISSION`
-    event.requestPermission().then((reponse) => {
-      if (reponse === 'granted') {
-        return true;
-      }
-    })
-  }
-  return false;
-}
-
-let iOS = !window.MSStream && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)
-if(iOS){
-  this.document.getElementById("device-info").innerHTML += `<br>This is an iOS device`
-  
-  let permbutton = this.document.createElement("button")
-  permbutton.innerHTML = "requestPermission"
-  var permission = false;
-  let x = 1;
+  const permbutton = window.document.createElement('button');
+  permbutton.innerHTML = 'requestPermission';
   permbutton.addEventListener('click', () => {
-    permission = !requestPermissionIOS(DeviceMotionEvent);
-    x=2;
-    console.log("permission "+permission)
+    clickHandler(event)
 
   });
-  console.log("x "+x)
-  if(permission){
-    console.log("ART")
-    window.addEventListener('devicemotion', function(event) {
-      console.log(event.acceleration.x + ' m/s2');
-      if(event.acceleration.x){
-        this.document.getElementById("acc-info").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
-        this.document.getElementById("gyro").style.left = event.x * 3 + 20
+
+  window.document.body.appendChild(permbutton);
+}
+
+function clickHandler(event){
+  if (typeof(event.requestPermission) === 'function') {
+    // if permission, Enable callback for deviceOrientationEvent
+    event.requestPermission().then((response) => {
+      if (response==='granted') {
+        // If user is not on iOS, sensor data can be read as normal.
+        window.addEventListener('deviceorientation', (event) => {
+          this.onReadOrientation.bind(this)(event);
+        });
+      } else {
+        throw new PermissionDeniedError('No permission granted for Device Orientation');
       }
     });
+  } else {
+    this.document.getElementById("device-info").innerHTML += `<br>This aint working bruv`
+    throw new Error('requestPermission for device orientation iOS is not a function!');
   }
+}
+console.log("HELLO IS TPYE")
+console.log(this.document.querySelector('button'))
+let iOS = !window.MSStream && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)
+if(iOS){
+  this.document.getElementById("device-info").innerHTML += `<br>This is an iOS device, specifically:${navigator.userAgent.substring(0, 20)}`
   
-  this.document.body.appendChild(permbutton);
+  requestPermissionIOS(window.DeviceMotionEvent)
 } else {
   this.document.getElementById("device-info").innerHTML = `This is an not an iOS device`
   if(window.DeviceMotionEvent){
