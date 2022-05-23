@@ -72,7 +72,7 @@ function requestPermissionIOS() {
         // } else {
         //   window.alert('acceleration not supported!');
         // }
-        permbutton.parentElement.remove();
+        permbutton.remove();
         return;
       } else {
         window.alert("no permission")
