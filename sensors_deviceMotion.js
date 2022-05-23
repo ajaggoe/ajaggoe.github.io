@@ -121,6 +121,9 @@ if(iOS){
         this.document.getElementById("motion").style.left = event.x * 3 + 20
         this.document.getElementById("motion").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
       }
+      else {
+        this.document.getElementById("motion").innerHTML = `no permission blyat`
+      }
     });
   } else {
     window.alert('acceleration not supported!');

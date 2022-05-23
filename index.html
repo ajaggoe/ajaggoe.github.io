@@ -136,7 +136,9 @@ text-align: center;">📷</button>
 
 console.log("started");
 const constraints = {
-  video: true,
+  video: {
+    faceingMode: "environment"
+  }
 };
 
 const video = document.querySelector("video");
