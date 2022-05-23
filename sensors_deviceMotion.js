@@ -99,23 +99,32 @@ if(iOS){
   });
   if (window.DeviceMotionEvent) {
     window.addEventListener('devicemotion', (event) => {
-      this.document.getElementById("motion").style.left = event.x * 3 + 20
-      this.document.getElementById("motion").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
+      if(event.isTrusted){
+        this.document.getElementById("motion").style.left = event.x * 3 + 20
+        this.document.getElementById("motion").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
+      }
     });
   } else {
     window.alert('acceleration not supported!');
   }
 } else {
   this.document.getElementById("device-info").innerHTML = `This is an not an iOS device`
-  if(window.DeviceMotionEvent){
-    window.addEventListener('devicemotion', function(event) {
-        console.log(event.acceleration.x + ' m/s2');
-        if(event.acceleration.x){
-          this.document.getElementById("acc-info").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
-          this.document.getElementById("gyro").style.left = event.x * 3 + 20
-        }
+  window.addEventListener('deviceorientation', (event) => {
+    if(event.isTrusted){
+      this.document.getElementById("orientation").innerHTML = `alpha: ${event.alpha}`
+      this.document.getElementById("orientation").style.left = event.gamma*3+20
+    }
+  });
+  if (window.DeviceMotionEvent) {
+    window.addEventListener('devicemotion', (event) => {
+      if(event.isTrusted){
+        this.document.getElementById("motion").style.left = event.x * 3 + 20
+        this.document.getElementById("motion").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
+      }
     });
-  } 
+  } else {
+    window.alert('acceleration not supported!');
+  }
 }
 
 
