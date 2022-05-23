@@ -49,8 +49,32 @@ function requestPermissionIOS(event) {
   const permbutton = window.document.createElement('button');
   permbutton.innerHTML = 'requestPermission';
   permbutton.addEventListener('click', () => {
-    clickHandler(event)
+    if (typeof(window.DeviceOrientationEvent.requestPermission()) === 'function' ||
+    typeof(window.DeviceMotionEvent.requestPermission()) === 'function') {
+      this.document.getElementById("device-info").innerHTML += `<br>This aint working bruv`
+      throw new Error('requestPermission for device orientation or device motion on iOS is not a function!');
+    }
 
+    // if permission, Enable callback for deviceOrientationEvent
+    window.DeviceOrientationEvent.requestPermission().then((response) => {
+      if (response==='granted') {
+        // If user is not on iOS, sensor data can be read as normal.
+        window.addEventListener('deviceorientation', (event) => {
+            this.document.getElementById("orientation").innerHTML = `alpha: ${event.alpha}`
+        });
+        if (window.DeviceMotionEvent) {
+          window.addEventListener('devicemotion', (event) => {
+            this.document.getElementById("motion").style.left = event.x * 3 + 20
+            this.document.getElementById("motion").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
+          });
+        } else {
+          window.alert('acceleration not supported!');
+        }
+      } else {
+        this.document.getElementById("motion").innerHTML = "No permission"
+        throw new PermissionDeniedError('No permission granted for Device Orientation');
+      }
+    });
   });
 
   window.document.body.appendChild(permbutton);
