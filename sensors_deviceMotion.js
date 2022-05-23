@@ -48,6 +48,7 @@ else{
 function requestPermissionIOS() {
   const permbutton = window.document.createElement('button');
   permbutton.innerHTML = 'requestPermission';
+  permbutton.setAttribute('id', 'permission')
   permbutton.addEventListener('click', () => {
     if (typeof(window.DeviceOrientationEvent.requestPermission()) === 'function' ||
     typeof(window.DeviceMotionEvent.requestPermission()) === 'function') {
@@ -71,6 +72,7 @@ function requestPermissionIOS() {
         // } else {
         //   window.alert('acceleration not supported!');
         // }
+        permbutton.parentElement.remove();
         return;
       } else {
         window.alert("no permission")
