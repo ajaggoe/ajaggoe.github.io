@@ -59,19 +59,7 @@ function requestPermissionIOS() {
     // if permission, Enable callback for deviceOrientationEvent
     window.DeviceOrientationEvent.requestPermission().then((response) => {
       if (response==='granted') {
-        // // If user is not on iOS, sensor data can be read as normal.
-        // window.addEventListener('deviceorientation', (event) => {
-        //     this.document.getElementById("orientation").innerHTML = `alpha: ${event.alpha}`
-        //     this.document.getElementById("orientation").style.left = event.gamma*3+20
-        // });
-        // if (window.DeviceMotionEvent) {
-        //   window.addEventListener('devicemotion', (event) => {
-        //     this.document.getElementById("motion").style.left = event.x * 3 + 20
-        //     this.document.getElementById("motion").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
-        //   });
-        // } else {
-        //   window.alert('acceleration not supported!');
-        // }
+
         permbutton.remove();
         return;
       } else {
@@ -97,6 +85,7 @@ if(iOS){
     if(event.isTrusted){
       this.document.getElementById("orientation").innerHTML = `alpha: ${event.alpha}`
       this.document.getElementById("orientation").style.left = event.gamma*3+20
+      this.document.getElementById('permission').remove();
     }
   });
   if (window.DeviceMotionEvent) {
