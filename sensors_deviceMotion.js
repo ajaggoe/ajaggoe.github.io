@@ -96,8 +96,15 @@ if(iOS){
       this.document.getElementById("orientation").innerHTML = `alpha: ${event.alpha}`
       this.document.getElementById("orientation").style.left = event.gamma*3+20
     }
-
-});
+  });
+  if (window.DeviceMotionEvent) {
+    window.addEventListener('devicemotion', (event) => {
+      this.document.getElementById("motion").style.left = event.x * 3 + 20
+      this.document.getElementById("motion").innerHTML = `x: ${event.acceleration.x.toFixed(2)} <br>y: ${event.acceleration.y.toFixed(2)}`
+    });
+  } else {
+    window.alert('acceleration not supported!');
+  }
 } else {
   this.document.getElementById("device-info").innerHTML = `This is an not an iOS device`
   if(window.DeviceMotionEvent){
