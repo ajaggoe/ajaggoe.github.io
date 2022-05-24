@@ -73,7 +73,15 @@ function requestPermissionIOS() {
 
   window.document.body.appendChild(permbutton);
 }
-
+if (window.DeviceMotionEvent) {
+  window.addEventListener('devicemotion', (event) => {
+    if (event.isTrusted) {
+      this.onReadMotion.bind(this)(event);
+    }
+  });
+} else {
+  window.alert('acceleration not supported!');
+}
 console.log("HELLO IS TPYE")
 console.log(this.document.querySelector('button'))
 let iOS = !window.MSStream && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)
