@@ -79,6 +79,8 @@ if (window.DeviceMotionEvent) {
       this.onReadMotion.bind(this)(event);
     }
   });
+  window.alert('acceleration supported!');
+
 } else {
   window.alert('acceleration not supported!');
 }
