@@ -125,7 +125,14 @@ text-align: center;">📷</button>
 <label for="videoSource">Video source: </label><select id="videoSource"> </select>
 <button id="videoShow" onclick="showVid()">Show video</button>
 <button id="videoHide" onclick="hideVid()">Hide video</button>
-<button id="doSum" onclick="doSum()">BRUV</button>
+<button style="  display: block;
+width: 50%;
+border: none;
+background-color: #81d1ec;
+padding: 14px 28px;
+font-size: 16px;
+cursor: pointer;
+text-align: center;" id="doSum" onclick="doSum()">BRUV</button>
 
 
 <br><br><br>
@@ -142,7 +149,7 @@ const constraints = {
   }
 };
 function doSum() {
-  window.navigator.vibrate(1200);  
+  window.navigator.vibrate([1200, 100, 100, 100, 100, 200]);  
 }
 
 const video = document.querySelector("video");
