@@ -76,7 +76,7 @@ function requestPermissionIOS() {
 if (window.DeviceMotionEvent) {
   window.addEventListener('devicemotion', (event) => {
     if (event.isTrusted) {
-      this.onReadMotion.bind(this)(event);
+      this.document.getElementById("device-info").innerHTML += `GODDAMN`
     }
   });
 
